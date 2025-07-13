@@ -3,9 +3,9 @@ using UnityEngine;
 [RequireComponent(typeof(MeshFilter), typeof(MeshCollider))]
 public class MeshDeformer : MonoBehaviour
 {
-    public float deformRadius = 0.5f;
-    public float deformStrength = 0.3f;
-
+    [SerializeField] private float deformRadius = 0.5f;
+    [SerializeField] private float deformStrength = 0.3f;
+    [SerializeField] private AudioSource _audioSource;
     private Mesh deformingMesh;
     private Vector3[] originalVertices;
     private Vector3[] displacedVertices;
@@ -52,6 +52,7 @@ public class MeshDeformer : MonoBehaviour
 
     void UpdateMesh()
     {
+        _audioSource.PlayOneShot(_audioSource.clip);
         deformingMesh.vertices = displacedVertices;
         deformingMesh.RecalculateNormals();
         deformingMesh.RecalculateBounds();
